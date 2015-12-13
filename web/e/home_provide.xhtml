@@ -1,0 +1,68 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+        <link rel="stylesheet" href="../resources/css/bootstrap.min.css"/>
+        <script src="../resources/jquery/jquery-1.11.3.min.js"></script>
+        <script src="../resources/js/bootstrap.min.js"></script>
+    </h:head>
+    <h:body>
+            <h:form>
+                <div class="container text-center">    
+                    <div class="row">
+                        <div class="col-sm-3 well">
+                            <div class="well">
+                                <p><a href="personal.xhtml">My Profile</a></p>
+                                <img src="../resource/imagesMember/#{memberBean.avatar}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                                <br/>
+                                <h:outputLabel value="#{memberBean.firstname} #{memberBean.lastname}"/>
+                            </div>
+
+                            <div class="well">
+                                <p>
+                                    <h:commandButton class="btn btn-primary btn-md" value="REQUEST" action="home_request"></h:commandButton>
+                                    <span>&nbsp;</span>
+                                    <h:commandButton style="background-color: #2B540A"
+                                                     class="btn btn-success btn-md active" value="PROVIDE"></h:commandButton>
+                                </p>
+                            </div>
+                            <div class="well">
+                                <p><a href="create_post_provide.xhtml">POST</a></p>
+                                <p><a href="#">THE RESPONSE</a></p>
+                            </div>
+
+
+                            <div class="alert alert-success fade in">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                                <p><strong>Ey!</strong></p>
+                                People are looking at your profile. Find out who.
+                            </div>
+                        </div>
+
+
+
+
+<!--                                            <div class="col-sm-2 well">
+                                                <div class="thumbnail">
+                                                    <p>Upcoming Events:</p>
+                                                    <img src="paris.jpg" alt="Paris" width="400" height="300"/>
+                                                    <p><strong>Paris</strong></p>
+                                                    <p>Fri. 27 November 2015</p>
+                                                    <button class="btn btn-primary">Info</button>
+                                                </div>      
+                                                <div class="well">
+                                                    <p>ADS</p>
+                                                </div>
+                                                <div class="well">
+                                                    <p>ADS</p>
+                                                </div>
+                                            </div>-->
+                    </div>
+                </div>
+
+            </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:pt="http://xmlns.jcp.org/jsf/passthrough">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="../resources/css_signup/style.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="../resources/css_signup/bootstrap.css" rel='stylesheet' type='text/css' media="all"/>
+    </h:head>
+    <h:body>
+        <h:form>
+
+            <div class="banner-top">
+                <h2>Create A New Account</h2>
+                <div class="banner-bottom">
+                    <div class="bnr-one">
+                        <div class="bnr-left">
+                            <p>User Name (*)</p>
+                        </div>
+                        <div class="bnr-right">
+                            <h:inputText value="#{memberBean.username}"/>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bnr-one">
+                        <div class="bnr-left">
+                            <p>Password (*)</p>
+                        </div>
+                        <div class="bnr-right">
+                            <h:inputSecret value="#{memberBean.password}"/>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bnr-one">
+                        <div class="bnr-left">
+                            <p>First Name (*)</p>
+                        </div>
+                        <div class="bnr-right">
+                            <h:inputText value="#{memberBean.firstname}"/>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bnr-one">
+                        <div class="bnr-left">
+                            <p>Last Name (*)</p>
+                        </div>
+                        <div class="bnr-right">
+                            <h:inputText value="#{memberBean.lastname}"/>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bnr-one">
+                        <div class="bnr-left">
+                            <p>Gender (*)</p>
+                        </div>
+                        <div class="bnr-right">
+                            <h:selectOneMenu value="#{memberBean.gender}">
+                                <f:selectItem itemValue="Male" itemLabel="Male"/>
+                                <f:selectItem itemValue="Female" itemLabel="Female"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bnr-one">
+                        <div class="bnr-left">
+                            <p>City (*)</p>
+                        </div>
+                        <div class="bnr-right">
+                            <h:selectOneMenu value="#{memberBean.city}">
+                                <f:selectItems value="#{addressBean.allCities}" var="itemc" itemValue="#{itemc.city_name}" itemLabel="#{itemc.city_name}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bnr-one">
+                        <div class="bnr-left">
+                            <p>Province (*)</p>
+                        </div>
+                        <div class="bnr-right">
+                            <!--find provinces by city-->
+                            <h:selectOneMenu value="#{memberBean.province}">
+                                <f:selectItems value="#{addressBean.allProvinces}" var="itemp"
+                                               itemValue="#{itemp.province_name}" itemLabel="#{itemp.province_name}"/>
+                            </h:selectOneMenu>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bnr-one">
+                        <div class="bnr-left">
+                            <p>Phone (*)</p>
+                        </div>
+                        <div class="bnr-right">
+                            <h:inputText value="#{memberBean.phone}" pt:type="tel"/>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bnr-one">
+                        <div class="bnr-left">
+                            <p>Email</p>
+                        </div>
+                        <div class="bnr-right">
+                            <h:inputText value="#{memberBean.email}" pt:type="email"/>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="bnr-btn">
+                        <h:commandButton value="Sign Up" action="#{memberBean.createNewMember()}"/> 
+                    </div>
+                </div>
+            </div>
+        </h:form>
+
+    </h:body>
+</html>
+

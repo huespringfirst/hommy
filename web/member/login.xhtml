@@ -1,0 +1,40 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+    <h:head>
+        <title>Facelet Title</title>
+        <link href="../resources/fonts/fonts.css"
+              rel="stylesheet" type="text/css"/>
+        <link rel="stylesheet" href="../resources/css_login/animate.css"/>
+        <link rel="stylesheet" href="../resources/css_login/style.css"/>
+        <script src="../resources/jquery/jquery-2.1.4.min.js"></script>
+        
+    </h:head>
+    <h:body>
+        <h:form>
+            <div class="container">
+                <!--<div class="top">-->
+                <!--<h1 id="title" class="hidden"><span id="logo">Hommy</span></h1>-->
+                <!--</div>-->
+                <div class="login-box animated fadeInUp">
+                    <div class="box-header">
+                        <h2>Log In</h2>
+                    </div>
+                    <h:outputLabel for="username">Username</h:outputLabel>
+                    <br/>
+                    <h:inputText id="username" value="#{memberBean.username}"/>
+                    <br/>
+                    <h:outputLabel for="password">Password</h:outputLabel>
+                    <br/>
+                    <h:inputSecret id="password" value="#{memberBean.password}"/>
+                    <br/>
+                    <h:commandButton value="Sign In" action="#{memberBean.loginMember()}"></h:commandButton>
+                    <br/>
+                    <a href="#"><p class="small">Forgot your password?</p></a>
+                </div>
+            </div>
+        </h:form>
+    </h:body>
+</html>
+

@@ -1,0 +1,209 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>
+            <ui:insert name="title"/>
+        </title>
+        <h:outputStylesheet library="css" name="bootstrap.min.css"/>
+        <h:outputScript library="jquery" name="jquery-1.11.3.min.js"/>
+        <h:outputScript library="js" name="bootstrap.min.js"/>
+        <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css"/>
+        <link href="../resources/css_signup/style.css" rel="stylesheet" type="text/css" media="all"/>
+        <link href="../resources/css_signup/bootstrap.css" rel='stylesheet' type='text/css' media="all"/>
+        <script>
+            $(document).ready(function () {
+                $(".dropdown").hover(
+                        function () {
+                            $('.dropdown-menu', this).stop(true, true).slideDown("fast");
+                            $(this).toggleClass('open');
+                        },
+                        function () {
+                            $('.dropdown-menu', this).stop(true, true).slideUp("fast");
+                            $(this).toggleClass('open');
+                        }
+                );
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="tooltip"]').tooltip();
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $("#avatar").click(function () {
+                    $("#avatarModal").modal();
+                });
+            });
+        </script>
+    </h:head>
+
+    <h:body>
+        <!--header-->
+        <nav class="navbar navbar-inverse-link-disabled-color  nav-pills-active-link-hover-bg navbar-fixed-top">
+            <div class="container" style="background-color: #F1B458; width: 100%;">
+                <div class="navbar-header" style="margin-left: 90px;">
+                    <a class="navbar-brand" href="#" style="text-decoration: none; color: white;">HOMMY.DN</a>
+                    <img  width="50" src="../resources/images/logo.png" alt="Image"/>
+                </div>
+                <div class="collapse navbar-collapse" id="myNavbar" style="margin-right: 90px;">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li><a href="../member/house.xhtml" style=" color: white;">HOUSE</a></li>
+                        <li><a href="../member/apartment.xhtml" style=" color: white;">APARTMENT </a></li>
+                        <li><a href="../member/motel.xhtml" style=" color: white;">MOTEL</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" style=" color: white;">POST<span class="caret"></span></a>
+                            <ul class="dropdown-menu" role="menu">
+                                <li>
+                                    <a href="#"> POST PROVIDE
+                                        <img src="../resources/images/post_p.png" height="20px" width="20px"></img>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../member/post_request.xhtml"> POST REQUEST
+                                        <img src="../resources/images/post_r.png" height="20px" width="20px"></img>
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                </div>
+            </div>
+        </nav>
+        <h:form enctype="multipart/form-data">
+            <div class="container text-center" style="margin-top: 70px;">    
+                <div class="row">
+
+                    <!--left-->
+                    <div class="col-sm-3 well">
+                        <!--profile-->
+                        <div class="well">
+                            <p><a href="../member/personal.xhtml">My Profile</a></p>
+                            <a href="#" id="avatar" data-toggle="tooltip" data-placement="top" title="Change Avatar">
+                                <img src="../resources/imagesMember/#{memberBean.avatar}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                            </a>
+
+                            <br/>
+                            <h:outputLabel value="#{memberBean.firstname} #{memberBean.lastname}"/>
+                            <br/>
+                            <h:commandLink type="button" class="btn btn-default btn-md" value="" style="text-decoration: none;">
+                                <span class="glyphicon glyphicon-hand-right"></span> Log out
+                            </h:commandLink>
+                        </div>
+
+
+                        <div class="modal fade" id="avatarModal" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                        <h4 class="modal-title">Change Avatar</h4>
+                                    </div>
+                                    <div class="modal-body">
+                                        <img src="../resources/imagesMember/#{memberBean.avatar}" class="img-circle" height="65" width="65" alt="Avatar"/>
+                                        <h:outputLabel value="#{memberBean.firstname} #{memberBean.lastname}"/>
+                                        <h:inputFile value="#{memberBean.file}"/>
+                                        
+                                    </div>
+                                    <div class="modal-footer">
+                                        <h:commandButton action="#{memberBean.changeAvatar()}" class="btn btn-default" value="Change"></h:commandButton>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+
+
+                        <!--link-->
+                        <div class="well">
+                            <p>
+                                <ul class="nav nav-pills">
+                                    <li class="active"><a data-toggle="pill" href="#provide">PROVIDE</a></li>
+                                    <li><a data-toggle="pill" href="#request">REQUEST</a></li>
+                                </ul>
+                                <div class="tab-content">
+                                    <div id="provide" class="tab-pane fade in active">
+                                        <div class="well">
+
+                                            <ui:insert name="type_provide"/>
+
+                                        </div>
+                                    </div>
+                                    <div id="request" class="tab-pane fade">
+                                        <div class="well">
+
+                                            <ui:insert name="type_request"/>
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </p>
+                        </div>
+                        <!--ads-->
+                        <div class="alert alert-success fade in">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">×</a>
+                            <p><strong>Ey!</strong></p>
+                            People are looking at your profile. Find out who.
+                        </div>
+                        <p><a href="#">Link</a></p>
+                        <p><a href="#">Link</a></p>
+                        <p><a href="#">Link</a></p>
+                    </div>
+
+
+                    <!--center-->
+                    <!--search-->
+                    <div class="col-sm-7">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="panel panel-default text-left">
+                                    <div class="panel-body">
+
+                                        <ui:insert name="content"/>
+
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                    <!--right-->
+                    <!--ads-->
+                    <div class="col-sm-2 well">
+                        <div class="thumbnail">
+                            <p>Upcoming Events:</p>
+                            <img src="paris.jpg" alt="Paris" width="400" height="300"/>
+                            <p><strong>Paris</strong></p>
+                            <p>Fri. 27 November 2015</p>
+                            <button class="btn btn-primary">Info</button>
+                        </div>      
+                        <div class="well">
+                            <p>ADS</p>
+                        </div>
+                        <div class="well">
+                            <p>ADS</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div id="bottom">
+                <ui:insert name="bottom">Bottom</ui:insert>
+            </div>
+
+        </h:form>
+    </h:body>
+
+</html>
