@@ -1,10 +1,13 @@
 
 package com.hommy.controller;
 
+import com.hommy.dao.TypePostDAO;
 import com.hommy.entity.TypeAds;
 import com.hommy.entity.TypeProvide;
 import com.hommy.entity.TypeReport;
 import com.hommy.entity.TypeRequest;
+import java.sql.SQLException;
+import java.util.ArrayList;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 
@@ -53,5 +56,10 @@ public class TypePostBean {
         this.request = request;
     }
     
+    //find type requests
+    public ArrayList<TypeRequest> getTypeRequests() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+        TypePostDAO dao = new TypePostDAO();
+        return dao.findAllTypeRequest();
+    }
     
 }

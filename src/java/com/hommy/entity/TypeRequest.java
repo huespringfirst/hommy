@@ -4,18 +4,18 @@ package com.hommy.entity;
 
 public class TypeRequest {
     
-    private int id;
+    private int idrequest;
     private String type_request_name;
 
     public TypeRequest() {
     }
 
-    public int getId() {
-        return id;
+    public int getIdrequest() {
+        return idrequest;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdrequest(int idrequest) {
+        this.idrequest = idrequest;
     }
 
     public String getType_request_name() {

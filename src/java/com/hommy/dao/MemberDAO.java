@@ -19,11 +19,11 @@ public class MemberDAO {
     //creat new member
     public boolean createMember(String username, String password,
             String firstname, String lastname, String gender, String avatar, String city,
-            String province, String phone, String email) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+            String district, String phone, String email) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         try (Connection conn = ConnectionFactory.getConnection()) {
-            String sql = "INSERT INTO member (username, password, firstname, lastname, gender, avatar, city, province, phone, email) "
+            String sql = "INSERT INTO member (username, password, firstname, lastname, gender, avatar, city, district, phone, email) "
                     + "VALUES ('" + username + "','" + password + "','" + firstname + "','" + lastname + "','" + gender + "','"
-                    + avatar + "','" + city + "','" + province + "','" + phone + "','" + email + "')";
+                    + avatar + "','" + city + "','" + district + "','" + phone + "','" + email + "')";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 return ps.executeUpdate() > 0;
             }
@@ -63,10 +63,10 @@ public class MemberDAO {
 
     //update private information
     public boolean updateInformationMember(String username, String firstname, String lastname, String gender,
-            String city, String province, String phone, String email) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+            String city, String district, String phone, String email) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         try (Connection conn = ConnectionFactory.getConnection()) {
             String sql = "UPDATE member SET firstname = '" + firstname + "',lastname = '" + lastname + "',gender = '" + gender 
-                    + "',city = '" + city + "',province = '" + province + "',phone = '" + phone
+                    + "',city = '" + city + "',district = '" + district + "',phone = '" + phone
                     + "',email = '" + email + "' WHERE username = '" + username + "'";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 return ps.executeUpdate() > 0;
@@ -91,7 +91,7 @@ public class MemberDAO {
                     entity.setGender(rs.getString("gender"));
                     entity.setAvatar(rs.getString("avatar"));
                     entity.setCity(rs.getString("city"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
                     entity.setPhone(rs.getString("phone"));
                     entity.setEmail(rs.getString("email"));
                     list.add(entity);
@@ -117,7 +117,7 @@ public class MemberDAO {
                     entity.setGender(rs.getString("gender"));
                     entity.setAvatar(rs.getString("avatar"));
                     entity.setCity(rs.getString("city"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
                     entity.setPhone(rs.getString("phone"));
                     entity.setEmail(rs.getString("email"));
                 }

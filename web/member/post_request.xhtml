@@ -15,111 +15,142 @@
 
             <ui:define name="content">
                 <div class="banner-top">
-                <h2>Create A New Request Post</h2>
+                    <h2>Create A New Request Post</h2>
 
-                <h4>Your Personal Information</h4>
-                <div class="banner-bottom">
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Name</p>
+                    <h4>Your Personal Information</h4>
+                    <div class="banner-bottom">
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Name</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:outputText value="#{memberBean.firstname} #{memberBean.lastname}"/>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="bnr-right">
-                            <h:inputText readonly="true" value="#{memberBean.firstname} #{memberBean.lastname}"/>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Address</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:outputText value="#{memberBean.district} - #{memberBean.city} - Viet Nam"/>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Address</p>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Phone</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:outputText value="#{memberBean.phone}"/>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="bnr-right">
-                            <h:inputText readonly="true" value="#{memberBean.province} - #{memberBean.city} - VietNam"/>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Phone</p>
-                        </div>
-                        <div class="bnr-right">
-                            <h:inputText readonly="true" value="#{memberBean.phone}"/>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
 
-                    <hr></hr>
+                        <hr></hr>
 
-                    <h4>Your Post's Information</h4>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Type</p>
+                        <h4>Your Post's Information</h4>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Type</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:selectOneMenu value="#{requestBean.type_request_name}">
+                                    <f:selectItem itemValue="-- Select A Type Request --" itemLabel="-- Select A Type Request"/>
+                                    <f:selectItems value="#{typePostBean.typeRequests}" var="typeR"
+                                                   itemLabel="#{typeR.type_request_name}" itemValue="#{typeR.type_request_name}"/>
+                                    <f:ajax listener="#{requestBean.checkType}" render="typeW"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="bnr-right">
-                            <h:selectOneMenu value="#{requestBean.type_request_name}">
-                                <f:selectItems/>
-                            </h:selectOneMenu>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Subject</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:inputText value="#{requestBean.subject}"/>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Subject</p>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Content</p>
+                            </div>
+                            <div class="bnr-right">
+                                <span data-toggle="popover" data-trigger="focus" 
+                                      data-content="Enter least 10 words">
+                                    <h:inputText value="#{requestBean.description}"/>
+                                </span>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="bnr-right">
-                            <h:inputText value="#{requestBean.subject}"/>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>District</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:selectOneMenu value="#{requestBean.district}">
+                                    <f:selectItem itemLabel="-- Select A District In DaNang--" itemValue="-- Select A District In DaNang--"/>
+                                    <f:selectItems value="#{addressBean.districtsInDaNang}" var="district"
+                                                   itemLabel="#{district.district_name}" itemValue="#{district.district_name}"/>
+                                    <f:ajax listener="#{requestBean.useAjax}" render="wards"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Content</p>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Wards</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:selectOneMenu id="wards" value="#{requestBean.wards}">
+                                    <f:selectItems value="#{requestBean.listWards}" var="itemW" itemValue="#{itemW.wards_name}"
+                                                   itemLabel="#{itemW.wards_name}"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="bnr-right">
-                            <h:inputText value="#{requestBean.description}"/>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Area</p>
+                            </div>
+                            <div class="bnr-right">
+                                <span data-toggle="popover" data-trigger="focus" 
+                                      data-content="Enter number, unit is m2">
+                                    <h:inputText value="#{requestBean.area}" style="width: 80%;"/>
+                                    <img src="../resources/images/m2.png"/>
+                                </span>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Province</p>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Cost</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:inputText id="cost" value="#{requestBean.cost}" style="width: 78%;">
+                                    <f:convertNumber pattern="###,###" currencySymbol="$" type="currency"/>
+                                </h:inputText>
+                                
+                                <!--????why don't-->
+                                <h:outputText id="typeW" value="#{requestBean.check}"/>
+                                
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="bnr-right">
-                            <h:selectOneMenu value="#{requestBean.province}">
-                                <f:selectItems value="#{addressBean.provincesInDaNang}" var="itemp"
-                                               itemValue="#{itemp.province_name}" itemLabel="#{itemp.province_name}"/>
-                            </h:selectOneMenu>
+                        <div class="bnr-btn">
+                            <h:commandButton value="Continue >>" action="#{requestBean.testPostRequest()}"/> 
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Area</p>
-                        </div>
-                        <div class="bnr-right">
-                            <h:inputText value="#{requestBean.area}"/>
-                            <!--m2-->
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Cost</p>
-                        </div>
-                        <div class="bnr-right">
-                            <h:inputText value="#{requestBean.cost}"/>
-                            <!--VND-->
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-btn">
-                        <h:commandButton value="Continue" action="#{requestBean.testPostRequest()}"/> 
                     </div>
                 </div>
-            </div>
             </ui:define>
-            
+
             <ui:define name="bottom">
-                bottom
+                #{requestBean.check}
+                #{requestBean.type_request_name}
+                #{requestBean.district}
+                
             </ui:define>
 
         </ui:composition>

@@ -6,6 +6,8 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
         <title>
             <ui:insert name="title"/>
         </title>
@@ -39,6 +41,11 @@
                 $("#avatar").click(function () {
                     $("#avatarModal").modal();
                 });
+            });
+        </script>
+        <script>
+            $(document).ready(function () {
+                $('[data-toggle="popover"]').popover();
             });
         </script>
     </h:head>
@@ -104,14 +111,13 @@
                                 <!-- Modal content-->
                                 <div class="modal-content">
                                     <div class="modal-header">
-                                        <button type="button" class="close" data-dismiss="modal">&times;</button>
                                         <h4 class="modal-title">Change Avatar</h4>
                                     </div>
                                     <div class="modal-body">
                                         <img src="../resources/imagesMember/#{memberBean.avatar}" class="img-circle" height="65" width="65" alt="Avatar"/>
                                         <h:outputLabel value="#{memberBean.firstname} #{memberBean.lastname}"/>
                                         <h:inputFile value="#{memberBean.file}"/>
-                                        
+
                                     </div>
                                     <div class="modal-footer">
                                         <h:commandButton action="#{memberBean.changeAvatar()}" class="btn btn-default" value="Change"></h:commandButton>

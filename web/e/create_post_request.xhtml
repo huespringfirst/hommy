@@ -12,108 +12,121 @@
     <h:body>
             
         <h:form>
-            <div class="banner-top">
-                <h2>Create A New Request Post</h2>
+           <div class="banner-top">
+                    <h2>Create A New Request Post</h2>
 
-                <h4>Your Personal Information</h4>
-                <div class="banner-bottom">
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Name</p>
+                    <h4>Your Personal Information</h4>
+                    <div class="banner-bottom">
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Name</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:inputText readonly="true" value="#{memberBean.firstname} #{memberBean.lastname}"/>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="bnr-right">
-                            <h:inputText readonly="true" value="#{memberBean.firstname} #{memberBean.lastname}"/>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Address</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:inputText/>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Address</p>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Phone</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:inputText readonly="true" value="#{memberBean.phone}"/>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="bnr-right">
-                            <h:inputText readonly="true" value="#{memberBean.province} - #{memberBean.city} - VietNam"/>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Phone</p>
-                        </div>
-                        <div class="bnr-right">
-                            <h:inputText readonly="true" value="#{memberBean.phone}"/>
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
 
-                    <hr></hr>
+                        <hr></hr>
 
-                    <h4>Your Post's Information</h4>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Type</p>
+                        <h4>Your Post's Information</h4>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Type</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:selectOneMenu value="#{requestBean.type_request_name}">
+                                    <f:selectItems value="#{typePostBean.typeRequests}" var="typeR"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="bnr-right">
-                            <h:selectOneMenu value="#{requestBean.type_request_name}">
-                                <f:selectItems/>
-                            </h:selectOneMenu>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Subject</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:inputText value="#{requestBean.subject}"/>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Subject</p>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Content</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:inputText value="#{requestBean.description}"/>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="bnr-right">
-                            <h:inputText value="#{requestBean.subject}"/>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>District</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:selectOneMenu value="#{requestBean.district}">
+                                    <f:selectItems value="#{addressBean.districtsInDaNang}" var="district"
+                                                   itemLabel="#{district.district_name}" itemValue="#{district.district_name}"/>
+                                    <f:ajax listener="#{requestBean.useAjax}" render="wards"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Content</p>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Wards</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:selectOneMenu id="wards" value="#{requestBean.wards}">
+                                    <f:selectItems value="#{requestBean.listWards}" var="itemW" itemValue="#{itemW.wards_name}"
+                                                   itemLabel="#{itemW.wards_name}"/>
+                                </h:selectOneMenu>
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="bnr-right">
-                            <h:inputText value="#{requestBean.description}"/>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Area</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:inputText value="#{requestBean.area}"/>
+                                <!--m2-->
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Province</p>
+                        <div class="bnr-one">
+                            <div class="bnr-left">
+                                <p>Cost</p>
+                            </div>
+                            <div class="bnr-right">
+                                <h:inputText value="#{requestBean.cost}"/>
+                                <!--VND-->
+                            </div>
+                            <div class="clearfix"></div>
                         </div>
-                        <div class="bnr-right">
-                            <h:selectOneMenu value="#{requestBean.province}">
-                                <f:selectItems value="#{addressBean.provincesInDaNang}" var="itemp"
-                                               itemValue="#{itemp.province_name}" itemLabel="#{itemp.province_name}"/>
-                            </h:selectOneMenu>
+                        <div class="bnr-btn">
+                            <h:commandButton value="Continue" action="#{requestBean.testPostRequest()}"/> 
                         </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Area</p>
-                        </div>
-                        <div class="bnr-right">
-                            <h:inputText value="#{requestBean.area}"/>
-                            <!--m2-->
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-one">
-                        <div class="bnr-left">
-                            <p>Cost</p>
-                        </div>
-                        <div class="bnr-right">
-                            <h:inputText value="#{requestBean.cost}"/>
-                            <!--VND-->
-                        </div>
-                        <div class="clearfix"></div>
-                    </div>
-                    <div class="bnr-btn">
-                        <h:commandButton value="Continue" action="#{requestBean.testPostRequest()}"/> 
                     </div>
                 </div>
-            </div>
         </h:form>
     </h:body>
 </html>

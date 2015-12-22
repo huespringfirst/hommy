@@ -1,20 +1,52 @@
 package com.hommy.controller;
 
+import com.hommy.dao.AddressDAO;
 import com.hommy.dao.RequestDAO;
+import com.hommy.entity.District;
 import com.hommy.entity.Request;
+import com.hommy.entity.Wards;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 
 @ManagedBean
 @SessionScoped
 public class RequestBean {
 
+    private String check;
+    private String message;
+    private ArrayList<Wards> listWards = new ArrayList<>();
     private Request request = new Request();
 
     public RequestBean() {
+    }
+
+    public String isCheck() {
+        return check;
+    }
+
+    public void setCheck(String check) {
+        this.check = check;
+    }
+
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
+    public ArrayList<Wards> getListWards() {
+        return listWards;
+    }
+
+    public void setListWards(ArrayList<Wards> listWards) {
+        this.listWards = listWards;
     }
 
     public Request getRequest() {
@@ -73,20 +105,20 @@ public class RequestBean {
         request.setTime(time);
     }
 
-    public String getStreet() {
-        return request.getStreet();
+    public String getDistrict() {
+        return request.getDistrict();
     }
 
-    public void setStreet(String street) {
-        request.setStreet(street);
+    public void setDistrict(String district) {
+        request.setDistrict(district);
     }
 
-    public String getProvince() {
-        return request.getProvince();
+    public String getWards() {
+        return request.getWards();
     }
 
-    public void setProvince(String province) {
-        request.setProvince(province);
+    public void setWards(String wards) {
+        request.setWards(wards);
     }
 
     public String getArea() {
@@ -139,9 +171,8 @@ public class RequestBean {
         }
         return false;
     }
-    
-    //check number
 
+    //check number
     //test post's information
     public String testPostRequest() {
         if (checkEmpty()) {
@@ -149,10 +180,12 @@ public class RequestBean {
                 return "view_request";
             } else {
                 //show message
+                message = "thieu tu";
                 return "post_request";
             }
         }
         //show message
+        message = "trong";
         return "post_request";
     }
 
@@ -161,7 +194,7 @@ public class RequestBean {
         Date time = new Date();
         RequestDAO dao = new RequestDAO();
         dao.createRequest(request.getType_request_name(), username, request.getSubject(), request.getDescription(),
-                time, request.getStreet(), request.getProvince(), request.getArea(),
+                time, request.getDistrict(), request.getWards(), request.getArea(),
                 request.getCost());
         return "done_request";
     }
@@ -175,11 +208,32 @@ public class RequestBean {
     //find requests are waiting for check
     //find requests have been check <check = 1> && show <hide = 0> -> public
     //find requests are error
+    //use ajax
+    public void useAjax(AjaxBehaviorEvent event) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+        AddressDAO dao = new AddressDAO();
+        ArrayList<District> list = dao.findDistrictsInDaNang();
+        for (District item : list) {
+            if (request.getDistrict().equals(item.getDistrict_name())) {
+                listWards = dao.findWardsByDistrictName(request.getDistrict());
+            }
+        }
+    }
+
+    //check type request - true: buy
+    public void checkType(AjaxBehaviorEvent event) {
+        if (request.getType_request_name().equalsIgnoreCase("Home - Buy")
+                || request.getType_request_name().equalsIgnoreCase("Aparterment - Buy")) {
+            check = "VND";
+        } else {
+            check = "VND/month";
+        }
+    }
+
     //-----------format---------------//
     public String toSringDateTime(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         return sdf.format(date);
     }
-    
+
     
 }

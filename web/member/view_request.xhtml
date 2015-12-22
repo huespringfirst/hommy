@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <body>
+
+        <ui:composition template="./../templates/MemberTemplate.xhtml">
+
+            <ui:define name="title">
+                title
+            </ui:define>
+
+            <ui:define name="type_provide">
+                type_provide
+            </ui:define>
+
+            <ui:define name="type_request">
+                type_request
+            </ui:define>
+
+            <ui:define name="content">
+                <center>
+
+                    <h2>Check The Information</h2>
+                    <p>The .table-striped class adds zebra-stripes to a table:</p>  
+                    <ul class="pager">
+                        <li><a href="post_request.xhtml">
+                                <span class="glyphicon glyphicon-chevron-left"></span> Back
+                            </a></li>
+                        <li>
+                            <h:commandLink value="Post" action="#{requestBean.createNewRequest(memberBean.username)}">
+                                <span class="glyphicon glyphicon-chevron-right"/>
+                            </h:commandLink>
+                        
+                        </li>
+                    </ul>
+                    <table class="table table-striped" style="text-align: center;">
+                        <tbody>
+                             <tr>
+                                <td>
+                                    <h:outputLabel value="Type Request"/>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{requestBean.type_request_name}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Subject"/>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{requestBean.subject}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Content"/>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{requestBean.description}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Ditrict"/>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{requestBean.district}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Wards"/>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{requestBean.wards}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Area"/>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{requestBean.area}"/>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <h:outputLabel value="Cost"/>
+                                </td>
+                                <td>
+                                    <h:outputText value="#{requestBean.cost}"/>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </center>
+            </ui:define>
+
+            <ui:define name="bottom">
+                bottom
+            </ui:define>
+
+        </ui:composition>
+
+    </body>
+</html>

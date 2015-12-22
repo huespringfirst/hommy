@@ -11,8 +11,8 @@ public class Request {
     private String subject;
     private String description;
     private Date time;
-    private String street;
-    private String province;
+    private String district;
+    private String wards;
     private String area;
     private String cost;
     private int hide;
@@ -69,20 +69,20 @@ public class Request {
         this.time = time;
     }
 
-    public String getStreet() {
-        return street;
+    public String getDistrict() {
+        return district;
     }
 
-    public void setStreet(String street) {
-        this.street = street;
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
-    public String getProvince() {
-        return province;
+    public String getWards() {
+        return wards;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setWards(String wards) {
+        this.wards = wards;
     }
 
     public String getArea() {

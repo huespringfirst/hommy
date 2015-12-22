@@ -1,6 +1,9 @@
 package com.hommy.controller;
 
+import com.hommy.dao.AddressDAO;
 import com.hommy.dao.MemberDAO;
+import com.hommy.entity.City;
+import com.hommy.entity.District;
 import com.hommy.entity.Member;
 import com.hommy.entity.MemberClock;
 import java.io.File;
@@ -14,18 +17,28 @@ import java.util.Calendar;
 import java.util.Date;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import javax.faces.event.AjaxBehaviorEvent;
 import javax.servlet.http.Part;
 
 @ManagedBean
 @SessionScoped
 public class MemberBean {
 
+    private ArrayList<District> listDistricts = new ArrayList<>();
     private String passold;
     private String passnew1;
     private String passnew2;
     private Member member = new Member();
     private Part file;
     String message;
+
+    public ArrayList<District> getListDistricts() {
+        return listDistricts;
+    }
+
+    public void setListDistricts(ArrayList<District> listDistricts) {
+        this.listDistricts = listDistricts;
+    }
 
     public String getPassold() {
         return passold;
@@ -134,12 +147,12 @@ public class MemberBean {
         member.setCity(city);
     }
 
-    public String getProvince() {
-        return member.getProvince();
+    public String getDistrict() {
+        return member.getDistrict();
     }
 
-    public void setProvince(String province) {
-        member.setProvince(province);
+    public void setDistrict(String province) {
+        member.setDistrict(province);
     }
 
     public String getPhone() {
@@ -169,14 +182,14 @@ public class MemberBean {
 
     //copy file on server - female
     public void copyFileFemale() throws IOException {
-        File oldfile = new File("D:\\JavaIVietech_LyThuyet\\IViettech\\Demo\\hommy\\web\\resources\\imagesMember\\avatar_female.png");
+        File oldfile = new File("D:\\JavaIVietech_LyThuyet\\IViettech\\Demo\\hommy\\web\\resources\\images\\avatar_female.png");
         File newfile = new File("D:\\JavaIVietech_LyThuyet\\IViettech\\Demo\\hommy\\web\\resources\\imagesMember\\" + member.getUsername() + ".png");
         Files.copy(oldfile.toPath(), newfile.toPath());
     }
 
     //copy file on server - male
     public void copyFileMale() throws IOException {
-        File oldfile = new File("D:\\JavaIVietech_LyThuyet\\IViettech\\Demo\\hommy\\web\\resources\\imagesMember\\avatar_male.png");
+        File oldfile = new File("D:\\JavaIVietech_LyThuyet\\IViettech\\Demo\\hommy\\web\\resources\\images\\avatar_male.png");
         File newfile = new File("D:\\JavaIVietech_LyThuyet\\IViettech\\Demo\\hommy\\web\\resources\\imagesMember\\" + member.getUsername() + ".png");
         Files.copy(oldfile.toPath(), newfile.toPath());
     }
@@ -202,10 +215,10 @@ public class MemberBean {
     }
 
     //check value empty - true: not empty
-    public boolean chekEmpty() {
+    public boolean checkEmpty() {
         if (member.getUsername().equals("") && member.getPassword().equals("")
                 && member.getFirstname().equals("") && member.getLastname().equals("")
-                && member.getCity().equals("") && member.getProvince().equals("")
+                && member.getCity().equals("") && member.getDistrict().equals("")
                 && member.getPhone().equals("")) {
             return false;
         } else {
@@ -215,7 +228,7 @@ public class MemberBean {
 
     //create new account
     public String createNewMember() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException, IOException {
-        if (chekEmpty()) {
+        if (checkEmpty()) {
             if (checkExist(member.getUsername())) {
                 MemberDAO dao = new MemberDAO();
                 if (member.getGender().equalsIgnoreCase("Male")) {
@@ -230,7 +243,7 @@ public class MemberBean {
                 dao.createMember(member.getUsername(), member.getPassword(),
                         member.getFirstname(), member.getLastname(),
                         member.getGender(), member.getAvatar(), member.getCity(),
-                        member.getProvince(), member.getPhone(), member.getEmail());
+                        member.getDistrict(), member.getPhone(), member.getEmail());
                 return "login";
             } else {
                 //show message
@@ -309,7 +322,7 @@ public class MemberBean {
                 member.setLastname(entity.getLastname());
                 member.setAvatar(entity.getAvatar());
                 member.setCity(entity.getCity());
-                member.setProvince(entity.getProvince());
+                member.setDistrict(entity.getDistrict());
                 member.setPhone(entity.getPhone());
                 member.setEmail(entity.getEmail());
                 return "post_request";
@@ -348,7 +361,7 @@ public class MemberBean {
                 && !member.getPhone().equals("")){
             MemberDAO dao = new MemberDAO();
             dao.updateInformationMember(member.getUsername(), member.getFirstname(), member.getLastname(), member.getGender(),
-                    member.getCity(), member.getProvince(), member.getPhone(), member.getEmail());
+                    member.getCity(), member.getDistrict(), member.getPhone(), member.getEmail());
         }else{
             //show message
         }
@@ -373,6 +386,17 @@ public class MemberBean {
         return dao.findAllMembers();
     }
 
+     //use ajax
+    public void useAjax(AjaxBehaviorEvent event) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+        AddressDAO dao = new AddressDAO();
+        ArrayList<City> list = dao.findAllCities();
+        for (City item : list) {
+            if(member.getCity().equals(item.getCity_name())){
+                listDistricts = dao.findDistrictByCityName(member.getCity());
+            }
+        }
+    }
+    
     //find member by request_idrequest
     //find member by provide_idprovide
     //find member by news_idnews

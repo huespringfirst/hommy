@@ -9,7 +9,7 @@ public class Member {
     private String gender;
     private String avatar;
     private String city;
-    private String province;
+    private String district;
     private String phone;
     private String email;
 
@@ -72,12 +72,12 @@ public class Member {
         this.city = city;
     }
 
-    public String getProvince() {
-        return province;
+    public String getDistrict() {
+        return district;
     }
 
-    public void setProvince(String province) {
-        this.province = province;
+    public void setDistrict(String district) {
+        this.district = district;
     }
 
     public String getPhone() {

@@ -2,7 +2,8 @@ package com.hommy.dao;
 
 import com.hommy.connection.ConnectionFactory;
 import com.hommy.entity.City;
-import com.hommy.entity.Provinces;
+import com.hommy.entity.District;
+import com.hommy.entity.Wards;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -32,17 +33,17 @@ public class AddressDAO {
         }
     }
     
-    //find provinces by city_id
-    public ArrayList<Provinces>  findProvincesByCityId(int id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+    //find district by city_id
+    public ArrayList<District>  findDistrictsByCityId(int id) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
          try (Connection conn = ConnectionFactory.getConnection()) {
-            String sql = "SELECT p.* FROM provinces p , city c WHERE c.id = p.city_id AND c.id = '" + id + "'";
+            String sql = "SELECT p.* FROM district p , city c WHERE c.id = d.city_id AND c.id = '" + id + "'";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ArrayList<Provinces> list = new ArrayList<>();
+                ArrayList<District> list = new ArrayList<>();
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    Provinces entity = new Provinces();
+                    District entity = new District();
                     entity.setCity_id(rs.getInt("city_id"));
-                    entity.setProvince_name(rs.getString("province_name"));
+                    entity.setDistrict_name(rs.getString("district_name"));
                     list.add(entity);
                 }
                 return list;
@@ -50,17 +51,18 @@ public class AddressDAO {
         }
     }
     
-    //find all provinces
-    public ArrayList<Provinces> findAllProvinces() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+    //find all districts
+    public ArrayList<District> findAllDistricts() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
          try (Connection conn = ConnectionFactory.getConnection()) {
-            String sql = "SELECT * FROM provinces";
+            String sql = "SELECT * FROM district";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ArrayList<Provinces> list = new ArrayList<>();
+                ArrayList<District> list = new ArrayList<>();
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    Provinces entity = new Provinces();
+                    District entity = new District();
+                    entity.setDistrict_id(rs.getInt("district_id"));
                     entity.setCity_id(rs.getInt("city_id"));
-                    entity.setProvince_name(rs.getString("province_name"));
+                    entity.setDistrict_name(rs.getString("district_name"));
                     list.add(entity);
                 }
                 return list;
@@ -68,17 +70,17 @@ public class AddressDAO {
         }
     }
     
-    //find provinces in Da Nang
-     public ArrayList<Provinces> findProvincesInDaNang() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+    //find districts in Da Nang
+     public ArrayList<District> findDistrictsInDaNang() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
          try (Connection conn = ConnectionFactory.getConnection()) {
-            String sql = "SELECT p.* FROM provinces p, city c WHERE c.id = p.city_id AND c.city_name LIKE 'Da Nang'";
+            String sql = "SELECT d.* FROM district d, city c WHERE c.id = d.city_id AND c.city_name LIKE 'Da Nang'";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
-                ArrayList<Provinces> list = new ArrayList<>();
+                ArrayList<District> list = new ArrayList<>();
                 ResultSet rs = ps.executeQuery();
                 while (rs.next()) {
-                    Provinces entity = new Provinces();
+                    District entity = new District();
                     entity.setCity_id(rs.getInt("city_id"));
-                    entity.setProvince_name(rs.getString("province_name"));
+                    entity.setDistrict_name(rs.getString("district_name"));
                     list.add(entity);
                 }
                 return list;
@@ -86,4 +88,42 @@ public class AddressDAO {
         }
     }
 
+     //find district by name city
+      public ArrayList<District> findDistrictByCityName(String city_name) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+         try (Connection conn = ConnectionFactory.getConnection()) {
+            String sql = "SELECT d.* FROM district d, city c WHERE c.id = d.city_id AND c.city_name = '" + city_name + "'";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ArrayList<District> list = new ArrayList<>();
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    District entity = new District();
+                    entity.setDistrict_id(rs.getInt("district_id"));
+                    entity.setCity_id(rs.getInt("city_id"));
+                    entity.setDistrict_name(rs.getString("district_name"));
+                    list.add(entity);
+                }
+                return list;
+            }
+        }
+    }
+     
+      //find wards by name district
+      public ArrayList<Wards> findWardsByDistrictName(String district_name) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+         try (Connection conn = ConnectionFactory.getConnection()) {
+            String sql = "SELECT w.* FROM district d, wards w WHERE d.district_id = w.district_district_id "
+                    + "AND d.district_name = '" + district_name + "'";
+            try (PreparedStatement ps = conn.prepareStatement(sql)) {
+                ArrayList<Wards> list = new ArrayList<>();
+                ResultSet rs = ps.executeQuery();
+                while (rs.next()) {
+                    Wards entity = new Wards();
+                    entity.setWards_id(rs.getInt("wards_id"));
+                    entity.setDistrict_district_id(rs.getInt("district_district_id"));
+                    entity.setWards_name(rs.getString("wards_name"));
+                    list.add(entity);
+                }
+                return list;
+            }
+        }
+    }
 }

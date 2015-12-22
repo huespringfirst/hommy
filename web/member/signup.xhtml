@@ -65,24 +65,26 @@
                     </div>
                     <div class="bnr-one">
                         <div class="bnr-left">
-                            <p>City (*)</p>
+                            <p>City / Province (*)</p>
                         </div>
                         <div class="bnr-right">
-                            <h:selectOneMenu value="#{memberBean.city}">
+                            <h:selectOneMenu id="city" value="#{memberBean.city}">
+                                <f:selectItem itemLabel="-- Select Your City / Province --" itemValue="--select my city/province--"/>
                                 <f:selectItems value="#{addressBean.allCities}" var="itemc" itemValue="#{itemc.city_name}" itemLabel="#{itemc.city_name}"/>
+                                <f:ajax render="district" execute="city"/>
                             </h:selectOneMenu>
                         </div>
                         <div class="clearfix"></div>
                     </div>
                     <div class="bnr-one">
                         <div class="bnr-left">
-                            <p>Province (*)</p>
+                            <p>District (*)</p>
                         </div>
                         <div class="bnr-right">
-                            <!--find provinces by city-->
-                            <h:selectOneMenu value="#{memberBean.province}">
-                                <f:selectItems value="#{addressBean.allProvinces}" var="itemp"
-                                               itemValue="#{itemp.province_name}" itemLabel="#{itemp.province_name}"/>
+                            <h:selectOneMenu id="district" value="#{memberBean.district}">
+                                <f:selectItems value="#{addressBean.getDistrictsByCityName(memberBean.city)}"
+                                               var="itemd"
+                                               itemValue="#{itemd.district_name}" itemLabel="#{itemd.district_name}"/>
                             </h:selectOneMenu>
                         </div>
                         <div class="clearfix"></div>

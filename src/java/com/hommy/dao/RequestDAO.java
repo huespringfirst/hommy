@@ -17,11 +17,12 @@ public class RequestDAO {
 
     //create new request
     public boolean createRequest(String type_request_name, String username, String subject, String description, Date time,
-            String street, String province, String area, String cost) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+            String district, String wards, String area, String cost) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         try (Connection conn = ConnectionFactory.getConnection()) {
-            String sql = "INSERT INTO request (type_request_name, username, subject, description, time, street, province, area, cost, contact) "
-                    + "VALUES ('" + type_request_name + "','" + username + "','" + subject + "','" + description + "','" + toSringDateTime(time) + "','" + street + "','"
-                    + province + "','" + area + "','" + cost + "')";
+            String sql = "INSERT INTO request (type_request_name, username, subject, description, time, district,"
+                    + " wards, area, cost) "
+                    + "VALUES ('" + type_request_name + "','" + username + "','" + subject + "','" + description + "','" + toSringDateTime(time) + "','" + district + "','"
+                    + wards + "','" + area + "','" + cost + "')";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 return ps.executeUpdate() > 0;
             }
@@ -40,18 +41,18 @@ public class RequestDAO {
 
     //edit request
     public boolean updateRequest(String idrequest, String type_request_name, String username, String subject, String description, Date time,
-            String street, String province, String area, String cost) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
+            String district, String wards, String area, String cost) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         try (Connection conn = ConnectionFactory.getConnection()) {
             String sql = "UPDATE request SET type_request_name = '" + type_request_name + "',username = '" + username
                     + "',subject = '" + subject + "',description = '" + description + "', time = '" + toSringDateTime(time)
-                    + "',street = '" + street + "',province = '" + province 
+                    + "',district = '" + district + "',wards = '" + wards
                     + "',area = '" + area + "',cost = '" + cost + "' WHERE idrequest = '" + idrequest + "'";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
                 return ps.executeUpdate() > 0;
             }
         }
     }
-    
+
     //set up hide request <hide = 0>
     public boolean updateHideRequest(int idrequest) throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         try (Connection conn = ConnectionFactory.getConnection()) {
@@ -87,8 +88,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -114,8 +115,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -141,8 +142,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -168,8 +169,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -195,8 +196,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -222,8 +223,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -249,8 +250,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -276,8 +277,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -303,8 +304,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -316,7 +317,7 @@ public class RequestDAO {
     }
 
     //find requests by hide = 0 && check = 1- public
-    public ArrayList<Request> findRequestsShowCheck() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException{
+    public ArrayList<Request> findRequestsShowCheck() throws SQLException, ClassNotFoundException, InstantiationException, IllegalAccessException {
         try (Connection conn = ConnectionFactory.getConnection()) {
             String sql = "SELECT * FROM request WHERE hide = '0' AND check = '1'";
             try (PreparedStatement ps = conn.prepareStatement(sql)) {
@@ -330,8 +331,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -341,10 +342,10 @@ public class RequestDAO {
             }
         }
     }
-    //find requests by province && type_request_name
-    //find requests by province && type_request_name && street
+    //find requests by district && type_request_name
+
+    //find requests by district && type_request_name && street
     //find requests LIKE character by subject and description
-    
     //sort cost ASC by province
     //sort coset ASC by type_request_name
     //sort cost ASC
@@ -362,8 +363,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -389,8 +390,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -416,8 +417,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -443,8 +444,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -470,8 +471,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));
@@ -497,8 +498,8 @@ public class RequestDAO {
                     entity.setSubject(rs.getString("subject"));
                     entity.setDescription(rs.getString("description"));
                     entity.setTime(rs.getDate("time"));
-                    entity.setStreet(rs.getString("street"));
-                    entity.setProvince(rs.getString("province"));
+                    entity.setDistrict(rs.getString("district"));
+                    entity.setWards(rs.getString("wards"));
                     entity.setCost(rs.getString("cost"));
                     entity.setHide(rs.getInt("hide"));
                     entity.setCheck(rs.getInt("check"));

@@ -25,5 +25,5 @@ public class City {
     public void setCity_name(String city_name) {
         this.city_name = city_name;
     }
-    
+
 }
